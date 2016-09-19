@@ -30,13 +30,25 @@ if (!isset($_GET["name"]) || !isset($_GET["age"])) {
     }
 
     echo "Hello $name! You are $age years old.";
+    
+    //PREVENTING FROM INJECTION (STEALING AND INJECTION DATA)
+    // DO NOT GET FIRED OVER FORGETING TO ESCAPE STRING!!!
+    /*
+     $sql = sprintf ("INSERT INTO person VALUES (NULL, '%s', '%s')", 
+            mysqli_escape_string($conn, $name),
+            mysqli_escape_string($conn, $age));
+     */
+     
+    // ALTERNATIVE
 
-    $sql = "INSERT INTO person VALUES (NULL, '$name', '$age')";
+    $sql = "INSERT INTO person VALUES (NULL, ' " . mysqli_escape_string($conn, $name) . " ', ' ". mysqli_escape_string($conn, $age). " ')";
 
     $result = mysqli_query($conn, $sql);
 
     if (!$result) {
         echo "Error executing query [ $sql ] :" . mysqli_error($conn);
+        exit;
+        // echo + exit SAME AS die
     }
 }
 

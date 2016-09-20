@@ -1,6 +1,6 @@
 <?php
 
-/* require_once 'db.php'; */
+ require_once 'db.php'; 
 
 if (!isset($_GET["description"]) || !isset($_GET["dueDate"]) || !isset($_GET["isDone"])) {
 
@@ -33,7 +33,7 @@ if (!isset($_GET["description"]) || !isset($_GET["dueDate"]) || !isset($_GET["is
     if (!$result) {
         echo "Error executing query [ $sql ] :" . mysqli_error($conn);
         exit;
-        // echo + exit SAME AS die
+        
     }
 }
 

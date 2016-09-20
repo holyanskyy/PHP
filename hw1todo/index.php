@@ -20,7 +20,7 @@
             exit;
         }
 
-        echo "<table border=1>";
+        /*echo "<table border=1>";
         echo "<tr><th>#</th><th>description</th><th>dueDate</th><th>isDone</th></tr>\n";
 
         $dataRows = mysqli_fetch_all($result, MYSQLI_ASSOC);
@@ -36,7 +36,7 @@
             echo "<tr><td>$ID</td><td>$description</td><td>$dueDate</td><td>$isDone</td></tr>\n";
         }
 
-        echo "</table>\n\n";
+        echo "</table>\n\n";*/
         ?>
 
     </body>

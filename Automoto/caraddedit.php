@@ -3,9 +3,9 @@
 // heredoc  - way of assigning file
 
 
-function getForm ($mm ='', $yy = '', $pp = '') {
+function getForm($mm = '', $yy = '', $pp = '') {
 
-$f = <<< JAMISWEET
+    $f = <<< JAMISWEET
 <h3>Add or Edit Car</h3>
 <form method="post">
     Make and model: <input type="text" name="makeModel" value="$mm"><br>
@@ -15,7 +15,7 @@ $f = <<< JAMISWEET
 </form>   
 JAMISWEET;
 
- return $f;
+    return $f;
 }
 
 require_once 'db.php';
@@ -41,7 +41,7 @@ if (!isset($_POST['makeModel'])) { // NOT RECEIVING MAKEmODEL THAN IS FIRTS SHOW
     if (($yop < 1901) || ($yop > 2020)) {
         array_push($errorList, "Year of production must be from 1901 to 2020");
     }
-    if (preg_match('/^[A-Z0-9]{3,8}$/', $plates) == 0) {
+    if (!preg_match('/^[A-Z0-9]{3,8}$/', $plates)) {
         array_push($errorList, "Plates must be <3-8> characters long, " .
                 "composed of uppercase letters and numbers");
     }
@@ -58,21 +58,17 @@ if (!isset($_POST['makeModel'])) { // NOT RECEIVING MAKEmODEL THAN IS FIRTS SHOW
     } else {
         // STATE 2: submission successful
         echo "Submission successful";
-        
-    
+
+
         // TODO INSERT
-        $sql = sprintf ("INSERT INTO car VALUES (NULL, '%s', '%s', '%s')", 
-            mysqli_escape_string($conn, $description),
-            mysqli_escape_string($conn, $dueDate),
-            $isDone);
+        $sql = sprintf("INSERT INTO car VALUES (NULL, '%s', '%s', '%s')", mysqli_escape_string($conn, $makeModel), mysqli_escape_string($conn, $yop), mysqli_escape_string($conn, $plates));
 
-    $result = mysqli_query($conn, $sql);
+        $result = mysqli_query($conn, $sql);
 
-    if (!$result) {
-        echo "Error executing query [ $sql ] :" . mysqli_error($conn);
-        exit;
-        // echo + exit SAME AS die
-    }
+        if (!$result) {
+            die ("Error executing query [ $sql ] :" . mysqli_error($conn));
+              
+        }
     }
 }
 

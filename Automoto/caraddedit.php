@@ -11,7 +11,9 @@ function getForm($mm = '', $yy = '', $pp = '') {
     Make and model: <input type="text" name="makeModel" value="$mm"><br>
     Year of production: <input type="number" name="yop" value="$yy"><br>
     Plates: <input type="text" name="plates" value="$pp"><br>
+     Is done? <input type="checkbox" name="isDone"><br>
     <input type="submit" value="Save">
+         
 </form>   
 JAMISWEET;
 
@@ -25,6 +27,11 @@ require_once 'db.php';
  * 2. Submission Successful
  * 3. (show error list and form again)
  */
+
+// For debugging purposes only - view all submitted values
+echo "<pre>\n";
+print_r($_POST);
+echo "</pre>\n\n";
 
 if (!isset($_POST['makeModel'])) { // NOT RECEIVING MAKEmODEL THAN IS FIRTS SHOW
     echo getForm();

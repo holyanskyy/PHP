@@ -1,8 +1,8 @@
 <?php
 
-$db_user = "root";
-$db_name = "todoitem";
-$db_pass = "nHpEpeYbY8MtjHzX";
+$db_user = "ipd8todoitem";
+$db_name = "ipd8todoitem";
+$db_pass = "85LPXQcqLbeJjLb6";
 
 $conn = mysqli_connect("localhost", $db_user, $db_pass, $db_name);
 

@@ -15,7 +15,7 @@ and open the template in the editor.
 
 
         <table border="1">
-            <tr><th>#</th><th>Name</th></tr>
+            <tr><th style="width: 20px">#</th><th style="width: 120px">Name</th></tr>
             <?php
             
              require_once 'db.php';

@@ -20,8 +20,8 @@ if (isset($_SESSION['user'])) { // if you are login
  */
 
 
-$sql = "SELECT articles.title, users.name, articles.created  FROM articles "
-        . "INNER JOIN users ON articles.authorID=users.ID ORDER BY created DESC LIMIT 5";
+$sql = "SELECT articles.ID, articles.title, users.name, articles.pubDate  FROM articles "
+        . "INNER JOIN users ON articles.authorID=users.ID ORDER BY pubDate DESC LIMIT 5";
 
 $result = mysqli_query($conn, $sql);
 if (!$result) {
@@ -30,10 +30,11 @@ if (!$result) {
 
 echo "<ol>\n";
 while ($row = mysqli_fetch_assoc($result)) {
+            $ID = $row['ID'];
             $title = $row['title'];
             $name = $row['name'];
-            $date = $row['created'];
-            echo "<li>$title, $name, $date</li>\n";
+            $date = $row['pubDate'];
+            echo "<li><a href=\"articleview.php?id=$ID\">$title</a>, $name, $date</li>\n";
         }
 echo "</ol>\n";
 

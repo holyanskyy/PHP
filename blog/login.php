@@ -25,9 +25,14 @@ if (!isset($_POST['email'])) {
     }
     if (mysqli_num_rows($result) == 0) {
         echo "<p>Login failed</p>";
-        echo getLoginForm();        
+        echo getLoginForm();
     } else {
         $row = mysqli_fetch_assoc($result);
+        // DEBUGGING
+        echo "<pre>";
+        print_r($row);
+        echo "</pre>";
+        
         // password MUST be compared in PHP because SQL is case-insenstive
         if ($row['password'] == $pass) {
             // LOGIN successful

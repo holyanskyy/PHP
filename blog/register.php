@@ -9,7 +9,7 @@ function getRegisterForm($name = "", $email = "") {
     Name: <input type="text" name="name" value="$name"><br>
     Email: <input type="text" name="email" value="$email"><br>
     Password: <input type="password" name="pass1"><br>
-    Password (repeated) <input type="password" name="pass2"><br>
+    Password (repeated): <input type="password" name="pass2"><br>
     <input type="submit" value="Register">
 </form>
 ENDTAG;
@@ -40,7 +40,10 @@ if (!isset($_POST['name'])) {
             array_push($errorList, "Email already registered");
         }
     }
-    if (!preg_match('/[0-9;\'".,<>`~|!@#$%^&*()_+=-]/', $pass1) || (!preg_match('/[a-z]/', $pass1)) || (!preg_match('/[A-Z]/', $pass1)) || (strlen($pass1) < 8)) {
+    if (!preg_match('/[0-9;\'".,<>`~|!@#$%^&*()_+=-]/', $pass1) 
+            || (!preg_match('/[a-z]/', $pass1)) 
+            || (!preg_match('/[A-Z]/', $pass1)) 
+            || (strlen($pass1) < 8)) {
         array_push($errorList, "Password must be at least 8 characters " .
                 "long, contain at least one upper case, one lower case, " .
                 " one digit or special character");
@@ -58,7 +61,10 @@ if (!isset($_POST['name'])) {
         echo getRegisterForm($name, $email);
     } else {
         // STATE 2: submission successful
-        $sql = sprintf("INSERT INTO users VALUES (NULL, '%s', '%s', '%s')", mysqli_escape_string($conn, $name), mysqli_escape_string($conn, $email), mysqli_escape_string($conn, $pass1));
+        $sql = sprintf("INSERT INTO users VALUES (NULL, '%s', '%s', '%s')", 
+                mysqli_escape_string($conn, $name), 
+                mysqli_escape_string($conn, $email), 
+                mysqli_escape_string($conn, $pass1));
         $result = mysqli_query($conn, $sql);
         if (!$result) {
             die("Error executing query [ $sql ] : " . mysqli_error($conn));

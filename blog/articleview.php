@@ -1,8 +1,9 @@
 <?php
 
 /* 
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
+articleview.php?id=7
+
+TODO: Add code to fetch the one article from database
+and display it in full (Title, Author name, Date of creation, body).
  */
 

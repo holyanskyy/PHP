@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: 127.0.0.1
--- Generation Time: Sep 23, 2016 at 09:18 AM
+-- Generation Time: Sep 23, 2016 at 07:16 PM
 -- Server version: 10.1.16-MariaDB
 -- PHP Version: 5.5.38
 
@@ -29,23 +29,21 @@ SET time_zone = "+00:00";
 CREATE TABLE `articles` (
   `ID` int(11) NOT NULL,
   `authorID` int(11) NOT NULL,
+  `pubDate` date NOT NULL,
   `title` varchar(200) NOT NULL,
   `body` text NOT NULL,
-  `created` date NOT NULL
+  `imagePath` varchar(250) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
 -- Dumping data for table `articles`
 --
 
-INSERT INTO `articles` (`ID`, `authorID`, `title`, `body`, `created`) VALUES
-(1, 1, 'Go to school', 'lorem ipsum to go to school lorem ipsum to go to school lorem ipsum to go to school lorem ipsum to go to school', '2016-09-23'),
-(3, 1, 'Go to library', 'Lorep ipsum go to library Lorep ipsum go to library Lorep ipsum go to library Lorep ipsum go to library', '2016-09-23'),
-(5, 1, 'How to grow fast', 'Lorem ipsum How to grow fast Lorem ipsum How to grow fast Lorem ipsum How to grow fast Lorem ipsum How to grow fast', '2016-09-23'),
-(6, 1, 'How to succeed in PHP', 'Lorep ipsum How to succeed in PHP Lorep ipsum How to succeed in PHP Lorep ipsum How to succeed in PHP Lorep ipsum How to succeed in PHP', '2016-09-23'),
-(9, 1, 'How to run fast', 'Lorep ipsum How to run fast Lorep ipsum How to run fast Lorep ipsum How to run fast Lorep ipsum How to run fast', '2016-09-23'),
-(10, 1, 'How to play games', 'Lorep ipsum How to play games Lorep ipsum How to play games Lorep ipsum How to play games', '2016-09-23'),
-(11, 3, 'How to become a businesman', 'Lorep ipsum How to became a businessman Lorep ipsum How to became a businessman Lorep ipsum How to became a businessman', '2016-09-23');
+INSERT INTO `articles` (`ID`, `authorID`, `pubDate`, `title`, `body`, `imagePath`) VALUES
+(2, 1, '2016-09-23', 'go to school', 'Lorep ipsum go to school Lorep ipsum go to school Lorep ipsum go to school Lorep ipsum go to school', ''),
+(3, 1, '2016-09-23', 'how to grow flowers', 'lorep ipsum how to grow flowers lorep ipsum how to grow flowers lorep ipsum how to grow flowers lorep ipsum how to grow flowers', 'uploads/a12272005d534380b903bb41f0ac5d35.jpeg'),
+(4, 1, '2016-09-23', 'how to grow  a flowers', 'how to grow  a flowershow to grow  a flowersvhow to grow  a flowershow to grow  a flowershow to grow  a flowers', 'uploads/bc208754d342c63399ae3b08f22e7edb.jpeg'),
+(5, 1, '2016-09-23', 'how to see a coala', 'how to see a coala how to see a coalahow to see a coalahow to see a coalahow to see a coalahow to see a coala', 'uploads/26aa287d117f1c0b994cc81440e0d9c7.jpeg');
 
 -- --------------------------------------------------------
 
@@ -55,10 +53,10 @@ INSERT INTO `articles` (`ID`, `authorID`, `title`, `body`, `created`) VALUES
 
 CREATE TABLE `comments` (
   `ID` int(11) NOT NULL,
-  `authorID` int(11) NOT NULL,
   `articleID` int(11) NOT NULL,
-  `body` text NOT NULL,
-  `createdTIMESTAMP` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
+  `authorID` int(11) NOT NULL,
+  `body` varchar(1000) NOT NULL,
+  `pubTimestamp` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- --------------------------------------------------------
@@ -70,7 +68,7 @@ CREATE TABLE `comments` (
 CREATE TABLE `users` (
   `ID` int(11) NOT NULL,
   `name` varchar(50) NOT NULL,
-  `email` varchar(200) NOT NULL,
+  `email` varchar(250) NOT NULL,
   `password` varchar(100) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
@@ -79,8 +77,7 @@ CREATE TABLE `users` (
 --
 
 INSERT INTO `users` (`ID`, `name`, `email`, `password`) VALUES
-(1, 'Nazar', 'golyanskiy@gmail.com', 'abcABC123'),
-(3, 'Jerry', 'jerry@hotmail.com', 'abcABC123');
+(1, 'nazar', 'gol@gol.gmail', 'abcABC123');
 
 --
 -- Indexes for dumped tables
@@ -98,15 +95,15 @@ ALTER TABLE `articles`
 --
 ALTER TABLE `comments`
   ADD PRIMARY KEY (`ID`),
-  ADD KEY `authorID` (`authorID`),
-  ADD KEY `articleID` (`articleID`);
+  ADD KEY `articleID` (`articleID`),
+  ADD KEY `authorID` (`authorID`);
 
 --
 -- Indexes for table `users`
 --
 ALTER TABLE `users`
   ADD PRIMARY KEY (`ID`),
-  ADD KEY `email` (`email`);
+  ADD UNIQUE KEY `email` (`email`);
 
 --
 -- AUTO_INCREMENT for dumped tables
@@ -116,7 +113,7 @@ ALTER TABLE `users`
 -- AUTO_INCREMENT for table `articles`
 --
 ALTER TABLE `articles`
-  MODIFY `ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
+  MODIFY `ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 --
 -- AUTO_INCREMENT for table `comments`
 --
@@ -126,7 +123,7 @@ ALTER TABLE `comments`
 -- AUTO_INCREMENT for table `users`
 --
 ALTER TABLE `users`
-  MODIFY `ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 --
 -- Constraints for dumped tables
 --

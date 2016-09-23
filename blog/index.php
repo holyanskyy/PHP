@@ -20,7 +20,7 @@ if (isset($_SESSION['user'])) { // if you are login
  */
 
 
-$sql = "SELECT articles.ID, articles.title, users.name, articles.pubDate  FROM articles "
+$sql = "SELECT articles.ID AS articleID, articles.title, users.name, articles.pubDate  FROM articles "
         . "INNER JOIN users ON articles.authorID=users.ID ORDER BY pubDate DESC LIMIT 5";
 
 $result = mysqli_query($conn, $sql);
@@ -30,7 +30,7 @@ if (!$result) {
 
 echo "<ol>\n";
 while ($row = mysqli_fetch_assoc($result)) {
-            $ID = $row['ID'];
+            $ID = $row['articleID'];
             $title = $row['title'];
             $name = $row['name'];
             $date = $row['pubDate'];

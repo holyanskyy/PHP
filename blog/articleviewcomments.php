@@ -104,4 +104,3 @@ function ShowComments($articleId, $conn) {
         echo '<p style="padding:10px;" >' . $body . '</p><hr/>';
     }
 }
-

@@ -1,60 +1,90 @@
+<!DOCTYPE html>
+
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <title>Blog</title>
+    </head>
+    <body>
+        <div style="width: 800px; margin: 0 auto;">
+
 <?php
 
 require_once 'db.php';
 
 if (isset($_SESSION['user'])) { // if you are login
+    echo '<p style="text-align:right;">';
     echo "Welcome " . $_SESSION['user']['name'] . "!";
     echo ' You may <a href="logout.php">Logout</a>' . ' or <a href="articleaddedit.php">post an article</a>';
+    $currentUserId=$_SESSION['user']['ID'];
 } else {
+    echo '<p style="text-align:right;">';
     echo "You are not logged in.";
     echo '<a href="login.php"> Login </a> or <a href="register.php">Register</a>';
+    $currentUserId="";
 }
 
 
 /*
   index.php
-
   TODO: Add code to fetch the latest 5 articles from database
   and display their titles, author and date of creation.
 
  */
 
-
-$sql = "SELECT articles.ID AS articleID, articles.title, users.name, articles.pubDate  FROM articles "
+/* $sql = "SELECT * FROM articles ORDER BY id DESC LIMIT 5";*/
+$sql = "SELECT articles.ID AS articleID, articles.title, users.name, articles.pubDate, users.ID as authorID  FROM articles "
         . "INNER JOIN users ON articles.authorID=users.ID ORDER BY pubDate DESC LIMIT 5";
 
 $result = mysqli_query($conn, $sql);
 if (!$result) {
     die("Error executing query [ $sql ] :" . mysqli_error($conn));
+    exit;
 }
 
-echo "<ol>\n";
+/* OR
+ * $numrows= mysqli_num_rows($result);
+$dataRows = mysqli_fetch_all($result, MYSQLI_ASSOC);
+
+       
+        echo "<pre>\n";
+        print_r($dataRows);
+        echo "</pre>\n\n";
+       
+        echo "<ul>";
+        foreach ($dataRows as $row) {
+            $ID = $row['articleID'];
+            $author = htmlspecialchars($row['name']);
+            $pubDate = $row['pubDate'];
+            $title = htmlspecialchars($row['title']);
+            $body = htmlspecialchars($row['body']);
+
+            echo "<li>$title $author $pubDate <a href=\"articleview.php?id=$ID\">View Article</a></li>";
+        }
+  */      
+echo '<h2 style="text-align:center;">Welcome to my blog, read on!</h2><br/>';
+
+echo "<ol>";
 while ($row = mysqli_fetch_assoc($result)) {
             $ID = $row['articleID'];
-            $title = $row['title'];
-            $name = $row['name'];
+            $title = htmlspecialchars ($row['title']);
+            $author = htmlspecialchars ($row['name']);
             $date = $row['pubDate'];
-            echo "<li><a href=\"articleview.php?id=$ID\">$title</a>, $name, $date</li>\n";
+            $authorID = htmlspecialchars ($row['authorID']);
+            echo "<li><a href=\"articleview.php?id=$ID\">$title</a>, $author, $date</li>\n";
+            
+            if ($authorID==$currentUserId){
+                echo "<a href=\"articleaddedit.php?id=$ID\">Edit article</a>";
+            }
+            echo "<br/><hr/>";
         }
-echo "</ol>\n";
+        echo "</ol>\n";
+        ?>
 
 
-//echo '<table border="1">';
-//echo '<tr><th>Title</th><th>Author</th><th>Date of creation</th></tr>';
 
-
-/*$dataRows = mysqli_fetch_all($result, MYSQLI_ASSOC);
-foreach ($dataRows as $row) {
-
-
-    $title = $row['ID'];
-    $name = htmlspecialchars($row['name']);
-
-    //echo "<tr><td><a href=\"articleview.php?id=$ID\">$ID</a></td><td><a href=\"studentview.php?id=$ID\">$name</a></td>\n";
-    //echo "</tr>\n";
-}
-
-echo '</table>';*/
-
+</div>
+</body>
+</html>
 
 

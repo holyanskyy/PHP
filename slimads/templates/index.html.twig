@@ -1,0 +1,31 @@
+{# empty Twig template #}
+<a href="http://localhost:8080/ipd8/slimads/index.php/postad"> post ad </a>
+
+{% if adList %}
+    <table border="1">
+        <tr>
+            <th>ID</th>
+            <th>Message</th>
+            <th>Price</th>
+            <th>Contact email:</th>
+             <th>Operations</th>
+        </tr>
+
+        {% for ad in adList %}
+            <tr>
+                <td>{{ ad.ID }}</td>
+                <td>{{ ad.msg }}</td>
+                <td>{{ ad.price }}</td>
+                <td>{{ ad.contactEmail }}</td>
+                 <td><a href='index.php/postad/:{{ad.ID}}' >Edit</a></td>
+            </tr>
+        {% endfor %}
+
+    </table>
+{% else %}
+
+    <p>There are no adds yet</p>
+
+{% endif %}
+
+

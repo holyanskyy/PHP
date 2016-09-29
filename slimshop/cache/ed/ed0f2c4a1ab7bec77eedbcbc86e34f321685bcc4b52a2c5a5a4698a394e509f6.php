@@ -28,7 +28,7 @@ class __TwigTemplate_1186c061694f516e7af4a7485c8b569594e72e19577623afcaa9a52c613
     // line 4
     public function block_title($context, array $blocks = array())
     {
-        echo "Home page";
+        echo "e-shop";
     }
 
     // line 6
@@ -36,21 +36,27 @@ class __TwigTemplate_1186c061694f516e7af4a7485c8b569594e72e19577623afcaa9a52c613
     {
         // line 7
         echo "
+    <h1>Welcome to e-shop</h1>
+
     ";
-        // line 8
-        if ((isset($context["user"]) ? $context["user"] : null)) {
-            // line 9
-            echo "        <p>You are logged in as ";
-            echo twig_escape_filter($this->env, $this->getAttribute((isset($context["users"]) ? $context["users"] : null), "name", array()), "html", null, true);
+        // line 10
+        if ((isset($context["sessionUser"]) ? $context["sessionUser"] : null)) {
+            // line 11
+            echo "        <p>Hello ";
+            echo twig_escape_filter($this->env, $this->getAttribute((isset($context["sessionUser"]) ? $context["sessionUser"] : null), "name", array()), "html", null, true);
+            echo " ";
+            echo twig_escape_filter($this->env, $this->getAttribute((isset($context["sessionUser"]) ? $context["sessionUser"] : null), "email", array()), "html", null, true);
             echo ". You may <a href=\"/logout\">Logout</a></p>
     ";
         } else {
-            // line 11
-            echo "        <p>You are not logged in. <a href=\"/login\">Login</a> or <a href=\"/register\">Register</a></p>  <br><br>  
+            // line 13
+            echo "        <p>You are not logged in. You may <a href=\"/login\">Login</a> or <a href=\"/register\">Register</a></p>  <br><br>  
     ";
         }
-        // line 13
+        // line 15
         echo "
+
+
 
 ";
     }
@@ -67,7 +73,7 @@ class __TwigTemplate_1186c061694f516e7af4a7485c8b569594e72e19577623afcaa9a52c613
 
     public function getDebugInfo()
     {
-        return array (  53 => 13,  49 => 11,  43 => 9,  41 => 8,  38 => 7,  35 => 6,  29 => 4,  11 => 2,);
+        return array (  57 => 15,  53 => 13,  45 => 11,  43 => 10,  38 => 7,  35 => 6,  29 => 4,  11 => 2,);
     }
 
     public function getSource()
@@ -75,15 +81,19 @@ class __TwigTemplate_1186c061694f516e7af4a7485c8b569594e72e19577623afcaa9a52c613
         return "{# empty Twig template #}
 {% extends \"master.html.twig\"%}
 
-{% block title %}Home page{% endblock %}
+{% block title %}e-shop{% endblock %}
 
 {% block content %}
 
-    {% if user %}
-        <p>You are logged in as {{users.name}}. You may <a href=\"/logout\">Logout</a></p>
+    <h1>Welcome to e-shop</h1>
+
+    {% if sessionUser %}
+        <p>Hello {{sessionUser.name}} {{sessionUser.email}}. You may <a href=\"/logout\">Logout</a></p>
     {% else %}
-        <p>You are not logged in. <a href=\"/login\">Login</a> or <a href=\"/register\">Register</a></p>  <br><br>  
+        <p>You are not logged in. You may <a href=\"/login\">Login</a> or <a href=\"/register\">Register</a></p>  <br><br>  
     {% endif %}
+
+
 
 
 {% endblock %}

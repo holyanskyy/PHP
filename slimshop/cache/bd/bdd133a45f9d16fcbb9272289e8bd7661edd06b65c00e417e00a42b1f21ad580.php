@@ -7,8 +7,8 @@ class __TwigTemplate_f7ecf66f5a40c3b78bc3fb6d44c34bfee83177cb08b84c5df3077cc5258
     {
         parent::__construct($env);
 
-        // line 3
-        $this->parent = $this->loadTemplate("master.html.twig", "login.html.twig", 3);
+        // line 1
+        $this->parent = $this->loadTemplate("master.html.twig", "login.html.twig", 1);
         $this->blocks = array(
             'title' => array($this, 'block_title'),
             'content' => array($this, 'block_content'),
@@ -25,26 +25,34 @@ class __TwigTemplate_f7ecf66f5a40c3b78bc3fb6d44c34bfee83177cb08b84c5df3077cc5258
         $this->parent->display($context, array_merge($this->blocks, $blocks));
     }
 
-    // line 5
+    // line 3
     public function block_title($context, array $blocks = array())
     {
-        echo "Login";
+        echo "Successful registration";
     }
 
-    // line 7
+    // line 5
     public function block_content($context, array $blocks = array())
     {
-        // line 8
-        echo "
+        // line 6
+        echo "    
 <h1>Login</h1>
+
+";
+        // line 9
+        if ((isset($context["loginFailed"]) ? $context["loginFailed"] : null)) {
+            // line 10
+            echo "    <p>Invalid username or password</p>
+";
+        }
+        // line 12
+        echo "
 <form method=\"post\">
-    Email: <input type=\"text\" name=\"email\"><br><br>
-    Password: <input type=\"password\" name=\"password\"><br><br>
-    <input type=\"submit\" value=\"Login\"><br><br>
+    Email: <input type=\"text\" name=\"email\"><br>
+    Password: <input type=\"password\" name=\"pass\"><br>
+    <input type=\"submit\" value=\"Login\">
 </form>
 
-
-    
 ";
     }
 
@@ -60,28 +68,29 @@ class __TwigTemplate_f7ecf66f5a40c3b78bc3fb6d44c34bfee83177cb08b84c5df3077cc5258
 
     public function getDebugInfo()
     {
-        return array (  38 => 8,  35 => 7,  29 => 5,  11 => 3,);
+        return array (  49 => 12,  45 => 10,  43 => 9,  38 => 6,  35 => 5,  29 => 3,  11 => 1,);
     }
 
     public function getSource()
     {
-        return "{# empty Twig template #}
+        return "{% extends \"master.html.twig\" %}
 
-{% extends \"master.html.twig\"%}
-
-{% block title %}Login{% endblock %}
+{% block title %}Successful registration{% endblock %}
 
 {% block content %}
-
+    
 <h1>Login</h1>
+
+{% if loginFailed %}
+    <p>Invalid username or password</p>
+{% endif %}
+
 <form method=\"post\">
-    Email: <input type=\"text\" name=\"email\"><br><br>
-    Password: <input type=\"password\" name=\"password\"><br><br>
-    <input type=\"submit\" value=\"Login\"><br><br>
+    Email: <input type=\"text\" name=\"email\"><br>
+    Password: <input type=\"password\" name=\"pass\"><br>
+    <input type=\"submit\" value=\"Login\">
 </form>
 
-
-    
 {% endblock %}";
     }
 }

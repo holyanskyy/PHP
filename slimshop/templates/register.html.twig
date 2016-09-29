@@ -2,10 +2,20 @@
 
 {% extends "master.html.twig"%}
 
-{% block title %}Register form{% endblock %}
+{% block title %}Register user{% endblock %}
 
 {% block head %}
-    
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+    <script>
+        $(document).ready(function (){
+          $('input[name=email]').keyup(function(){
+            $('#result').load('/emailexists/' + $(this).val()); 
+              
+          });  
+        });
+
+    </script>
+
     <style>
         #message{
             color: red;
@@ -28,16 +38,16 @@
     <form method="post">
         <label for="name">Name:</label> 
         <input type="text" name="name" value="{{v.name}}"<br><br><br>
-        
+
         <label for="email"> Email: </label> 
-        <input type="text" name="email" value="{{v.email}}"><span id="message"></span><br><br>
-        
+        <input type="text" name="email" value="{{v.email}}"><span id="result"></span><br><br>
+
         <label for="pass1">Password: </label> 
         <input type="password" name="pass1"><br><br>
-        
+
         <label for="pass1">Password (repeated): </label> 
         <input type="password" name="pass2"><br><br>
-        
+
         <input type="submit" value="Register"><br><br>
     </form>
 

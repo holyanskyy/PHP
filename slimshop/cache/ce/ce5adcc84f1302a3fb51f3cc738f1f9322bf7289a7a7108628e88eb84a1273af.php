@@ -7,17 +7,40 @@ class __TwigTemplate_e046ad7d5cd6eee575b1e8beb5c1ddc7aadc6583ab99134b4a4b6b27a37
     {
         parent::__construct($env);
 
-        $this->parent = false;
-
+        // line 1
+        $this->parent = $this->loadTemplate("master.html.twig", "login_success.html.twig", 1);
         $this->blocks = array(
+            'title' => array($this, 'block_title'),
+            'content' => array($this, 'block_content'),
         );
+    }
+
+    protected function doGetParent(array $context)
+    {
+        return "master.html.twig";
     }
 
     protected function doDisplay(array $context, array $blocks = array())
     {
-        // line 2
-        echo "
-<p>You have LOGGED IN! <a href=\"/\">Click here to continue</a></p>";
+        $this->parent->display($context, array_merge($this->blocks, $blocks));
+    }
+
+    // line 3
+    public function block_title($context, array $blocks = array())
+    {
+        echo "Successful login";
+    }
+
+    // line 5
+    public function block_content($context, array $blocks = array())
+    {
+        // line 6
+        echo "    
+<h1>Login successful</h1>
+
+<a href=\"/\">Click to continue</a>
+
+";
     }
 
     public function getTemplateName()
@@ -25,15 +48,28 @@ class __TwigTemplate_e046ad7d5cd6eee575b1e8beb5c1ddc7aadc6583ab99134b4a4b6b27a37
         return "login_success.html.twig";
     }
 
+    public function isTraitable()
+    {
+        return false;
+    }
+
     public function getDebugInfo()
     {
-        return array (  19 => 2,);
+        return array (  38 => 6,  35 => 5,  29 => 3,  11 => 1,);
     }
 
     public function getSource()
     {
-        return "{# empty Twig template #}
+        return "{% extends \"master.html.twig\" %}
 
-<p>You have LOGGED IN! <a href=\"/\">Click here to continue</a></p>";
+{% block title %}Successful login{% endblock %}
+
+{% block content %}
+    
+<h1>Login successful</h1>
+
+<a href=\"/\">Click to continue</a>
+
+{% endblock %}";
     }
 }

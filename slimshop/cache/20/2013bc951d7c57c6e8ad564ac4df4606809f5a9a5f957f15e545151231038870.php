@@ -29,14 +29,24 @@ class __TwigTemplate_6dcbfbef8680eb5749561f2918a57e1454486c76e390c1099c3f8ad5c10
     // line 5
     public function block_title($context, array $blocks = array())
     {
-        echo "Register form";
+        echo "Register user";
     }
 
     // line 7
     public function block_head($context, array $blocks = array())
     {
         // line 8
-        echo "    
+        echo "    <script src=\"https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js\"></script>
+    <script>
+        \$(document).ready(function (){
+          \$('input[name=email]').keyup(function(){
+            \$('#result').load('/emailexists/' + \$(this).val()); 
+              
+          });  
+        });
+
+    </script>
+
     <style>
         #message{
             color: red;
@@ -46,23 +56,23 @@ class __TwigTemplate_6dcbfbef8680eb5749561f2918a57e1454486c76e390c1099c3f8ad5c10
 ";
     }
 
-    // line 17
+    // line 27
     public function block_content($context, array $blocks = array())
     {
-        // line 18
+        // line 28
         echo "    <h1>Register user</h1>
 
     ";
-        // line 20
+        // line 30
         if ((isset($context["errorList"]) ? $context["errorList"] : null)) {
-            // line 21
+            // line 31
             echo "        <ul>
             ";
-            // line 22
+            // line 32
             $context['_parent'] = $context;
             $context['_seq'] = twig_ensure_traversable((isset($context["errorList"]) ? $context["errorList"] : null));
             foreach ($context['_seq'] as $context["_key"] => $context["error"]) {
-                // line 23
+                // line 33
                 echo "                <li>";
                 echo twig_escape_filter($this->env, $context["error"], "html", null, true);
                 echo "</li>
@@ -71,32 +81,32 @@ class __TwigTemplate_6dcbfbef8680eb5749561f2918a57e1454486c76e390c1099c3f8ad5c10
             $_parent = $context['_parent'];
             unset($context['_seq'], $context['_iterated'], $context['_key'], $context['error'], $context['_parent'], $context['loop']);
             $context = array_intersect_key($context, $_parent) + $_parent;
-            // line 24
+            // line 34
             echo "   
         </ul>
 
     ";
         }
-        // line 28
+        // line 38
         echo "    <form method=\"post\">
         <label for=\"name\">Name:</label> 
         <input type=\"text\" name=\"name\" value=\"";
-        // line 30
+        // line 40
         echo twig_escape_filter($this->env, $this->getAttribute((isset($context["v"]) ? $context["v"] : null), "name", array()), "html", null, true);
         echo "\"<br><br><br>
-        
+
         <label for=\"email\"> Email: </label> 
         <input type=\"text\" name=\"email\" value=\"";
-        // line 33
+        // line 43
         echo twig_escape_filter($this->env, $this->getAttribute((isset($context["v"]) ? $context["v"] : null), "email", array()), "html", null, true);
-        echo "\"><span id=\"message\"></span><br><br>
-        
+        echo "\"><span id=\"result\"></span><br><br>
+
         <label for=\"pass1\">Password: </label> 
         <input type=\"password\" name=\"pass1\"><br><br>
-        
+
         <label for=\"pass1\">Password (repeated): </label> 
         <input type=\"password\" name=\"pass2\"><br><br>
-        
+
         <input type=\"submit\" value=\"Register\"><br><br>
     </form>
 
@@ -117,7 +127,7 @@ class __TwigTemplate_6dcbfbef8680eb5749561f2918a57e1454486c76e390c1099c3f8ad5c10
 
     public function getDebugInfo()
     {
-        return array (  91 => 33,  85 => 30,  81 => 28,  75 => 24,  66 => 23,  62 => 22,  59 => 21,  57 => 20,  53 => 18,  50 => 17,  39 => 8,  36 => 7,  30 => 5,  11 => 3,);
+        return array (  101 => 43,  95 => 40,  91 => 38,  85 => 34,  76 => 33,  72 => 32,  69 => 31,  67 => 30,  63 => 28,  60 => 27,  39 => 8,  36 => 7,  30 => 5,  11 => 3,);
     }
 
     public function getSource()
@@ -126,10 +136,20 @@ class __TwigTemplate_6dcbfbef8680eb5749561f2918a57e1454486c76e390c1099c3f8ad5c10
 
 {% extends \"master.html.twig\"%}
 
-{% block title %}Register form{% endblock %}
+{% block title %}Register user{% endblock %}
 
 {% block head %}
-    
+    <script src=\"https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js\"></script>
+    <script>
+        \$(document).ready(function (){
+          \$('input[name=email]').keyup(function(){
+            \$('#result').load('/emailexists/' + \$(this).val()); 
+              
+          });  
+        });
+
+    </script>
+
     <style>
         #message{
             color: red;
@@ -152,16 +172,16 @@ class __TwigTemplate_6dcbfbef8680eb5749561f2918a57e1454486c76e390c1099c3f8ad5c10
     <form method=\"post\">
         <label for=\"name\">Name:</label> 
         <input type=\"text\" name=\"name\" value=\"{{v.name}}\"<br><br><br>
-        
+
         <label for=\"email\"> Email: </label> 
-        <input type=\"text\" name=\"email\" value=\"{{v.email}}\"><span id=\"message\"></span><br><br>
-        
+        <input type=\"text\" name=\"email\" value=\"{{v.email}}\"><span id=\"result\"></span><br><br>
+
         <label for=\"pass1\">Password: </label> 
         <input type=\"password\" name=\"pass1\"><br><br>
-        
+
         <label for=\"pass1\">Password (repeated): </label> 
         <input type=\"password\" name=\"pass2\"><br><br>
-        
+
         <input type=\"submit\" value=\"Register\"><br><br>
     </form>
 

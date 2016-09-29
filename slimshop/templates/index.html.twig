@@ -1,18 +1,20 @@
 {# empty Twig template #}
 {% extends "master.html.twig"%}
 
-{% block title %}Home page{% endblock %}
+{% block title %}e-shop{% endblock %}
 
 {% block content %}
 
-    {% if user %}
-        <p>You are logged in as {{user.name}}. You may <a href="/logout">Logout</a></p>
+    <h1>Welcome to e-shop</h1>
+
+    {% if sessionUser %}
+        <p>Hello {{sessionUser.name}} {{sessionUser.email}}. You may <a href="/logout">Logout</a></p>
     {% else %}
-        <p>You are not logged in. <a href="/login">Login</a> or <a href="/register">Register</a></p>  <br><br>  
+        <p>You are not logged in. You may <a href="/login">Login</a> or <a href="/register">Register</a></p>  <br><br>  
     {% endif %}
 
-    
-  
+
+
 
 {% endblock %}
 

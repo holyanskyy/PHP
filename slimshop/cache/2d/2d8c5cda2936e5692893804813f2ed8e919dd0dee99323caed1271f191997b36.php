@@ -28,7 +28,7 @@ class __TwigTemplate_d7b7f4e9c00281dda3dbed796c0aaa0f0420913c118410be670689ba2dd
     // line 5
     public function block_title($context, array $blocks = array())
     {
-        echo "Register form";
+        echo "Successful registration";
     }
 
     // line 7
@@ -36,7 +36,7 @@ class __TwigTemplate_d7b7f4e9c00281dda3dbed796c0aaa0f0420913c118410be670689ba2dd
     {
         // line 8
         echo "
-    <p>New User ";
+    <p>New user ";
         // line 9
         echo twig_escape_filter($this->env, (isset($context["name"]) ? $context["name"] : null), "html", null, true);
         echo " was registered succesfully</p>
@@ -67,11 +67,11 @@ class __TwigTemplate_d7b7f4e9c00281dda3dbed796c0aaa0f0420913c118410be670689ba2dd
 
 {% extends \"master.html.twig\"%}
 
-{% block title %}Register form{% endblock %}
+{% block title %}Successful registration{% endblock %}
 
 {% block content %}
 
-    <p>New User {{name}} was registered succesfully</p>
+    <p>New user {{name}} was registered succesfully</p>
     <a href=\"/login\"> Click to login </a>
 
 

@@ -1,0 +1,30 @@
+{# empty Twig template #}
+{% extends "master.html.twig"%}
+
+{% block title %}Travels{% endblock %}
+
+{% block content %}
+
+    <h1>Welcome to travels</h1>
+
+    {% if sessionUser %}
+        <p>Hello {{sessionUser.name}} {{sessionUser.passport}}. You may <a href="/book">Book</a> or <a href="/logout">Logout</a></p>
+
+        {% if bookingsList %}
+
+        {% else %}
+
+            <p>There are no bookings yet</p>
+
+        {% endif %}
+
+
+    {% else %}
+        <p>You are not logged in. You may <a href="/login">Login</a> or <a href="/register">Register</a></p>  <br><br>  
+    {% endif %}
+
+
+
+
+{% endblock %}
+

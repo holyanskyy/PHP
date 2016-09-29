@@ -1,14 +1,14 @@
 <?php
 
-/* register_success.html.twig */
-class __TwigTemplate_d7b7f4e9c00281dda3dbed796c0aaa0f0420913c118410be670689ba2ddc3962 extends Twig_Template
+/* login.html.twig */
+class __TwigTemplate_f7ecf66f5a40c3b78bc3fb6d44c34bfee83177cb08b84c5df3077cc5258601ce extends Twig_Template
 {
     public function __construct(Twig_Environment $env)
     {
         parent::__construct($env);
 
         // line 3
-        $this->parent = $this->loadTemplate("master.html.twig", "register_success.html.twig", 3);
+        $this->parent = $this->loadTemplate("master.html.twig", "login.html.twig", 3);
         $this->blocks = array(
             'title' => array($this, 'block_title'),
             'content' => array($this, 'block_content'),
@@ -28,7 +28,7 @@ class __TwigTemplate_d7b7f4e9c00281dda3dbed796c0aaa0f0420913c118410be670689ba2dd
     // line 5
     public function block_title($context, array $blocks = array())
     {
-        echo "Register form";
+        echo "Login";
     }
 
     // line 7
@@ -36,19 +36,21 @@ class __TwigTemplate_d7b7f4e9c00281dda3dbed796c0aaa0f0420913c118410be670689ba2dd
     {
         // line 8
         echo "
-    <p>New User ";
-        // line 9
-        echo twig_escape_filter($this->env, (isset($context["name"]) ? $context["name"] : null), "html", null, true);
-        echo " was registered succesfully</p>
-    <a href=\"/login\"> Click to login </a>
+<h1>Login</h1>
+<form method=\"post\">
+    Email: <input type=\"text\" name=\"email\"><br><br>
+    Password: <input type=\"password\" name=\"password\"><br><br>
+    <input type=\"submit\" value=\"Login\"><br><br>
+</form>
 
 
+    
 ";
     }
 
     public function getTemplateName()
     {
-        return "register_success.html.twig";
+        return "login.html.twig";
     }
 
     public function isTraitable()
@@ -58,7 +60,7 @@ class __TwigTemplate_d7b7f4e9c00281dda3dbed796c0aaa0f0420913c118410be670689ba2dd
 
     public function getDebugInfo()
     {
-        return array (  41 => 9,  38 => 8,  35 => 7,  29 => 5,  11 => 3,);
+        return array (  38 => 8,  35 => 7,  29 => 5,  11 => 3,);
     }
 
     public function getSource()
@@ -67,15 +69,19 @@ class __TwigTemplate_d7b7f4e9c00281dda3dbed796c0aaa0f0420913c118410be670689ba2dd
 
 {% extends \"master.html.twig\"%}
 
-{% block title %}Register form{% endblock %}
+{% block title %}Login{% endblock %}
 
 {% block content %}
 
-    <p>New User {{name}} was registered succesfully</p>
-    <a href=\"/login\"> Click to login </a>
+<h1>Login</h1>
+<form method=\"post\">
+    Email: <input type=\"text\" name=\"email\"><br><br>
+    Password: <input type=\"password\" name=\"password\"><br><br>
+    <input type=\"submit\" value=\"Login\"><br><br>
+</form>
 
 
-{% endblock %}
-";
+    
+{% endblock %}";
     }
 }

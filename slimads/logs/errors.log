@@ -2,3 +2,4 @@
 [2016-09-28 17:38:17] main.ERROR:  in query: SELECT **** from ad [] []
 [2016-09-28 17:41:39] main.ERROR: SQL error: You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near '** from ad' at line 1 [] []
 [2016-09-28 17:41:39] main.ERROR:  in query: SELECT *** from ad [] []
+[2016-09-29 02:51:21] main.ERROR: Database error: Unable to connect to MySQL server! Error: Access denied for user 'slimads'@'localhost' (using password: YES) [] []

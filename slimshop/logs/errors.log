@@ -1,2 +1,4 @@
 [2016-09-28 20:31:34] main.ERROR: SQL error: Duplicate entry 'nazar@gmail.com' for key 'email' [] []
 [2016-09-28 20:31:34] main.ERROR:  in query: INSERT INTO `users` (`name`,`email`,`password`) VALUES ('Nazar', 'nazar@gmail.com', 'abcABC123') [] []
+[2016-09-29 06:14:15] main.ERROR: SQL error: Duplicate entry 'terry@gmail.com' for key 'email' [] []
+[2016-09-29 06:14:15] main.ERROR:  in query: INSERT INTO `users` (`name`,`email`,`password`) VALUES ('Terry', 'terry@gmail.com', 'Qwerty123') [] []

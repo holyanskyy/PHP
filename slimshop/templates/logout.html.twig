@@ -1,4 +1,10 @@
 {# empty Twig template #}
+{% extends "master.html.twig"%}
 
-<h1>Logged out</h1>
-<a href="index.php">Click to continue</a>
+{% block title %}Log out{% endblock %}
+
+{% block content %}
+<h1>You are logged out</h1>
+<a href="/">Click to continue</a>
+
+{% endblock %}

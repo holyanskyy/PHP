@@ -7,3 +7,5 @@
 [2016-09-28 17:44:10] main.DEBUG: Ad updated with ID =12 [] []
 [2016-09-28 17:45:34] main.DEBUG: Ad updated with ID =3 [] []
 [2016-09-28 18:37:45] main.DEBUG: Ad created with ID =13 [] []
+[2016-09-29 02:51:21] main.ERROR: Database error: Unable to connect to MySQL server! Error: Access denied for user 'slimads'@'localhost' (using password: YES) [] []
+[2016-09-29 02:58:03] main.DEBUG: Ad updated with ID =10 [] []

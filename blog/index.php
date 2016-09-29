@@ -12,17 +12,7 @@
 
 require_once 'db.php';
 
-if (isset($_SESSION['user'])) { // if you are login
-    echo '<p style="text-align:right;">';
-    echo "Welcome " . $_SESSION['user']['name'] . "!";
-    echo ' You may <a href="logout.php">Logout</a>' . ' or <a href="articleaddedit.php">post an article</a>';
-    $currentUserId=$_SESSION['user']['ID'];
-} else {
-    echo '<p style="text-align:right;">';
-    echo "You are not logged in.";
-    echo '<a href="login.php"> Login </a> or <a href="register.php">Register</a>';
-    $currentUserId="";
-}
+
 
 
 /*

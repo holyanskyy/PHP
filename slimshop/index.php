@@ -115,7 +115,10 @@ $app->post('/register', function() use ($app, $log) {
     } else {
         // STATE 2: submission successful
         DB::insert('users', array(
-            'name' => $name, 'email' => $email, 'password' => hash ('sha256', $pass1)
+            'name' => $name, 
+            'email' => $email,
+            'password' => password_hash ($pass1, CRYPT_BLOWFISH)
+            //'password' => hash ('sha256', $pass1)
         ));
         $id = DB::insertId();
         $log->debug(sprintf("User %s created", $id));
@@ -138,7 +141,8 @@ $app->post('/login', function() use ($app, $log) {
         $app->render('login.html.twig', array('loginFailed' => TRUE));
     } else {
         // password MUST be compared in PHP because SQL is case-insenstive
-        if ($user['password'] == hash('sha256', $pass)) {
+        //if ($user['password'] == hash('sha256', $pass)) {
+        if (password_verify($pass, $user['password'])) {
             // LOGIN successful
             unset($user['password']);
             $_SESSION['user'] = $user;

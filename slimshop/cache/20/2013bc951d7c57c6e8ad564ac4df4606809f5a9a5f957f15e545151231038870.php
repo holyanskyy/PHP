@@ -99,7 +99,8 @@ class __TwigTemplate_6dcbfbef8680eb5749561f2918a57e1454486c76e390c1099c3f8ad5c10
         <input type=\"text\" name=\"email\" value=\"";
         // line 43
         echo twig_escape_filter($this->env, $this->getAttribute((isset($context["v"]) ? $context["v"] : null), "email", array()), "html", null, true);
-        echo "\"><span id=\"result\"></span><br><br>
+        echo "\">
+        <span id=\"result\"></span><br><br>
 
         <label for=\"pass1\">Password: </label> 
         <input type=\"password\" name=\"pass1\"><br><br>
@@ -174,7 +175,8 @@ class __TwigTemplate_6dcbfbef8680eb5749561f2918a57e1454486c76e390c1099c3f8ad5c10
         <input type=\"text\" name=\"name\" value=\"{{v.name}}\"<br><br><br>
 
         <label for=\"email\"> Email: </label> 
-        <input type=\"text\" name=\"email\" value=\"{{v.email}}\"><span id=\"result\"></span><br><br>
+        <input type=\"text\" name=\"email\" value=\"{{v.email}}\">
+        <span id=\"result\"></span><br><br>
 
         <label for=\"pass1\">Password: </label> 
         <input type=\"password\" name=\"pass1\"><br><br>

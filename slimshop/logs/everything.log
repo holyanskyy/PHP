@@ -23,3 +23,6 @@
 [2016-09-29 19:29:06] main.DEBUG: User 4 created [] []
 [2016-09-29 19:36:43] main.DEBUG: User 5 created [] []
 [2016-09-29 19:37:01] main.DEBUG: User 5 logged in successfuly from IP ::1 [] []
+[2016-09-30 15:39:34] main.DEBUG: User 6 created [] []
+[2016-09-30 15:39:49] main.DEBUG: User 6 logged in successfuly from IP ::1 [] []
+[2016-09-30 15:40:51] main.DEBUG: User 6 logged in successfuly from IP ::1 [] []

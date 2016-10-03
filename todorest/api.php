@@ -47,16 +47,14 @@ $app = new \Slim\Slim();
 $app->response->headers->set('content-type', 'application/json');
 
 function isToDoItemValid($todo) {
-    /* TODO: validation the following
-     * 1. all fields ID, title, dueDate, isDone are present and none other
-     * 
-     * if (condition is true) {
-     * return FALSE;
-     * }
-     * 2. 
-
-     * 
-     *      */
+  /* TODO: validate the following:
+     * 1. All fields ID, title, dueDate, isDone are present and none other
+     * 2. ID is valid numercial value 1 or graeter
+     * 3. title is 1-100 characters long
+     * 4. dueDate is a valid date between 2000-01-01 and 2099-01-01
+     * 5. isDone is either 'true' or 'false'
+     * In case of failed validation requirement $log->debug() the reason.
+     */
     return TRUE;
 }
 

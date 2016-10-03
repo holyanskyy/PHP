@@ -46,15 +46,53 @@ $app = new \Slim\Slim();
 
 $app->response->headers->set('content-type', 'application/json');
 
-function isToDoItemValid($todo) {
+function isToDoItemValid($todo, &$error) {
   /* TODO: validate the following:
      * 1. All fields ID, title, dueDate, isDone are present and none other
+   * 
+   *  
      * 2. ID is valid numercial value 1 or graeter
      * 3. title is 1-100 characters long
      * 4. dueDate is a valid date between 2000-01-01 and 2099-01-01
      * 5. isDone is either 'true' or 'false'
      * In case of failed validation requirement $log->debug() the reason.
-     */
+    */
+      if (!isset($todo['ID'])) {
+
+        if (count($todo) != 3) {
+            $error = 'Should receive 3 and only three values';
+            return FALSE;
+        }
+    } else {
+        if (count($todo) != 4) {
+            $error = 'Should receive 4 and only four values';
+            return FALSE;
+        }
+    }
+    if (!isset($todo['title']) || !isset($todo['dueDate']) || !isset($todo['isDone'])) {
+        $error = 'The passed fileds do not correspond to the expected list';
+
+        return FALSE;
+    }
+    if (strlen($todo['title']) < 1 || strlen($todo['title']) > 100) {
+        $error = 'Title is not valid';
+        return FALSE;
+    }
+    if (!in_array($todo['isDone'], array('true', 'false'))) {
+        $error = 'isDone is not true nor false';
+        return FALSE;
+    }
+    $tempDate = explode('-', $todo['dueDate']);
+    $f = 'Y-m-d';
+    if (count($tempDate) != 3) {
+        $error = 'dueDate is not in the correct format';
+        return FALSE;
+    } elseif (!checkdate($tempDate[1], $tempDate[2], $tempDate[0]) 
+            || date($todo['dueDate'], $f) < date('2000-01-01', $f) 
+            || date($todo['dueDate'], $f) > date('2099-01-01', $f)) {
+        $error = 'dueDate could not be parsed into a valid date between 2000-01-01 and 2099-01-01';
+        return FALSE;
+    }
     return TRUE;
 }
 
@@ -83,10 +121,11 @@ $app->delete('/todoitems/:ID', function ($ID) {
 
 $app->post('/todoitems/', function () use ($app) {
     $body = $app->request->getBody(); // $body as String
-    $record = json_decode($body, TRUE); // convert String into assoative array for meekroDB
+    $record = json_decode($body, TRUE); // convert String into assoative array for meekroDB - DESERIALIZATION
     // FIXME: verify $record contains all and only fields required with valid values
-    if (!isToDoItemValid($record)) {
+    if (!isToDoItemValid($record, $error, TRUE)) {
         $app->response->setStatus(400);
+        $log->debug("POST /todoitems verifications failed: ".$error);
         echo json_encode('Bad request - data validation failed');
         return;
     }
@@ -101,7 +140,7 @@ $app->put('/todoitems/:ID', function ($ID) use ($app) {
     $record = json_decode($body, TRUE); // convert String into assoative array for meekroDB
     $record['ID'] = $ID;  // prevent changing of ID   
     // FIXME: verify $record contains all and only fields required with valid values
-     if (!isToDoItemValid($record)) {
+     if (!isToDoItemValid($record, error, FALSE)) {
         $app->response->setStatus(400);
         echo json_encode('Bad request - data validation failed');
         return;

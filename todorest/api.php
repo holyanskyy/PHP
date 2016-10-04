@@ -82,16 +82,35 @@ function isTodoItemValid($todo, &$error, $skipID = FALSE) {
         $error = 'dueDate is not in the correct format';
         return FALSE;
     } elseif (!checkdate($tempDate[1], $tempDate[2], $tempDate[0])
-            || date($todo['dueDate'], $f) < date('2000-01-01', $f)
-            || date($todo['dueDate'], $f) > date('2099-01-01', $f)) {
+            || date($todo['dueDate']) < date('2000-01-01')
+            || date($todo['dueDate']) > date('2099-01-01')) {
         $error = 'dueDate could not be parsed into a valid date between 2000-01-01 and 2099-01-01';
         return FALSE;
     }
     return TRUE;
 }
 
+function getAuthUserID() {
+    global $app, $log;
+    $username = $app->request->headers("PHP_AUTH_USER");
+    $password = $app->request->headers("PHP_AUTH_PW");
+    
+    if ($username && $password) {
+        $row = DB::queryFirstRow("SELECT * FROM users WHERE email=%s", $username);
+        if ($row && $row['password'] == $password) {
+            return $row['ID'];
+        }
+    }
+    $log->debug('BASIC auth failed for user').$username;
+    $app->response->status(401);
+    $app->response->header('WWW-Authenticate', 'Basic realm=TodoApp');
+    return FALSE;
+}
+
 $app->get('/todoitems', function() {
-    $recordList = DB::query("SELECT * FROM todoitems");
+    $userID = getAuthUserID();
+    if (!$userID) return;
+    $recordList = DB::query("SELECT * FROM todoitems where userID=%d", $userID);
     echo json_encode($recordList, JSON_PRETTY_PRINT);
 });
 

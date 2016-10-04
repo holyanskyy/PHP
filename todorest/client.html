@@ -9,6 +9,8 @@
         <script>
 
             var currentID = 0; // 0 means nothing is selected
+            var username = "";
+            var password = "";
 
             function selectItem(itemID) {
                 currentID = itemID;
@@ -38,6 +40,15 @@
                 $.ajax({
                     url: "/api.php/todoitems",
                     // data: {},
+                    username: username, // name of field : name of global variable taken 
+                    password: password,
+                    statusCode: {
+                        401: function(xhr) {
+                            $("#loginPane").show();
+                            $("#listPane").hide();
+                        }
+                        
+                    },
                     type: "GET",
                     dataType: "json"
                 }).done(function (data) {
@@ -53,6 +64,7 @@
                         result += '</tr>';
                     }
                     $("#listTable").html(result);
+                    $("#listPane").show();
                 });
             }
 
@@ -61,8 +73,16 @@
             });
             $(document).ready(function () {
                 $("#waitForIt").hide();
-                refreshTodoList();
+                //refreshTodoList();
                 $("#viewAddEditPane").hide();
+                 $("#listPane").hide();
+                 
+                 $("#loginButton").click(function () {
+                   username = $("input[name=username]").val();
+                   password = $("input[name=password]").val();
+                   $("#loginPane").hide();
+                   refreshTodoList(); 
+               });
 
                 $("#showAddItem").click(function () {
                     $("#viewAddEditPane").show();
@@ -134,6 +154,12 @@
     </head>
     <body>
         <div id="centerContent">
+            <div id="loginPane">
+                Username: <input type="text" name="username"><br><br>
+                Password: <input type="password" name="password"><br><br>
+                <button id="loginButton">Login</button><br><br>
+                </div>
+            
             <!-- left list -->
             <div id="listPane">
                 <button id="showAddItem">Add item</button>

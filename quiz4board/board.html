@@ -1,0 +1,122 @@
+
+<html>
+    <head>
+        <title>TODO supply a title</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+         <link rel="stylesheet" href="/styles.css" />
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+        
+         <script>
+
+            var currentID = 0; // 0 means nothing is selected
+
+            function selectItem(itemID) {
+                currentID = itemID;
+                //$("#currentID").html(currentID);
+                
+               $.ajax({
+                        url: "/api.php/messages/" + currentID,
+                        data: {},
+                        type: "DELETE",
+                        dataType: "json"
+                    }).done(function () {
+                        alert("Deleted successfully");
+                        refreshTodoList();
+                    });
+            }
+
+
+            function refreshTodoList() {
+                $.ajax({
+                    url: "/api.php/messages",
+                    // data: {},
+                    type: "GET",
+                    dataType: "json"
+                }).done(function (data) {
+                    var result = '<tr><th>#</th><th>Seller</th><th>Price</th>'
+                            + '<th>Description</th><th>Operation</th></tr>';
+                    for (var i = 0; i < data.length; i++) {
+                        var item = data[i];
+                        result += '<tr >';
+                        result += '<td>' + item.ID + '</td>';
+                        result += '<td>' + item.sellerName + '</td>';
+                        result += '<td>' + item.price + '</td>';
+                        result += '<td>' + item.description + '</td>';
+                        result += '<td ><img src="remove.png" alt="remove" style="width:42px;height:42px;border:0;" onclick="selectItem(' + item.ID + ')"></td>';
+                        result += '</tr>';
+                    }
+                    $("#listTable").html(result);
+                });
+            }
+
+            $(document).ajaxError(function () {
+                alert("AJAX request failed");
+            });
+            
+            $(document).ready(function () {
+                
+                refreshTodoList();
+                
+                $("#AddItem").click(function () {
+                   
+                    // FIXME: verify inputs seem okay
+                    var sellerNameRaw = $("input[name=sellerName]").val();
+                    var priceRaw = $("input[name=price]").val();
+                    var descriptionRaw = $("textarea[name=description]").val();
+                    
+                    console.log("DDR: " + priceRaw);
+                                       
+                        // INSERT
+                        $.ajax({
+                            url: "/api.php/messages",
+                            
+                            data: JSON.stringify({
+                                sellerName: sellerNameRaw,
+                                description: descriptionRaw,
+                                price: priceRaw,
+                            }),
+                            type: "POST",
+                            dataType: "json"
+                        }).done(function () {
+                            alert("Addedd successfully");
+                            refreshTodoList();
+                        });
+                    
+                }); // end Add button click
+                
+              
+            });
+        </script>
+        
+    </head>
+   
+    <body>
+       
+        
+        <div id="centerContent">
+            
+            
+            <!-- center view of single item -->
+            <div id="viewAddEditPane">
+               <!-- Current ID: <span id="currentID"></span><br>-->
+                Seller name: <input type="text" name="sellerName"><br><br>
+                Price: <input type="text" name="price"><br><br>
+                Ad: <textarea name="description" rows="4" cols="50"></textarea><br><br>
+                <button id="AddItem">Post Ad</button>             
+            </div>
+             <!-- bottom list -->
+            <div id="listPane">
+                               
+                <table id="listTable">
+
+                </table>
+
+            </div>
+            
+
+        </div>
+    </body>
+    
+    
+</html>

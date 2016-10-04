@@ -18,3 +18,7 @@ body {
     width: 380px;
     display: inline-table;
 }
+
+div {
+    margin: 10px, 15px;
+}

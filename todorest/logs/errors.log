@@ -6,3 +6,4 @@
 [2016-09-30 19:55:24] main.ERROR:  in query: SELECT *** FROM todoitems [] []
 [2016-09-30 19:55:53] main.ERROR: SQL error: You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near '** FROM todoitems' at line 1 [] []
 [2016-09-30 19:55:53] main.ERROR:  in query: SELECT *** FROM todoitems [] []
+[2016-10-04 05:54:38] main.ERROR: Database error: Unable to connect to MySQL server! Error: Access denied for user 'todorest'@'localhost' (using password: YES) [] []

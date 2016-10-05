@@ -86,7 +86,7 @@ if (!isset($_SESSION['user'])) {
 }
 
 $app->get('/', function() use ($app) {    
-    $app->render('login_register.html.twig',
+    $app->render('register.html.twig',
             array('sessionUser' => $_SESSION['user']));
 });
 

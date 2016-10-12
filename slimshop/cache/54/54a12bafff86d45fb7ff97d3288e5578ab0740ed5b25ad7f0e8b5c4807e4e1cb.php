@@ -29,15 +29,16 @@ class __TwigTemplate_7a707a449d7ce7f2c374feadf160afc6deb3277444120b679939ebd9c29
         // line 8
         $this->displayBlock('title', $context, $blocks);
         echo "</title>
+        <script src=\"https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js\"></script>
         ";
-        // line 9
+        // line 10
         $this->displayBlock('head', $context, $blocks);
-        // line 11
+        // line 12
         echo "    </head>
     <body>
         <div id=\"centerContent\">
             <div id=\"content\">";
-        // line 14
+        // line 15
         $this->displayBlock('content', $context, $blocks);
         echo "</div>
             <div id=\"footer\">
@@ -54,14 +55,14 @@ class __TwigTemplate_7a707a449d7ce7f2c374feadf160afc6deb3277444120b679939ebd9c29
     {
     }
 
-    // line 9
+    // line 10
     public function block_head($context, array $blocks = array())
     {
-        // line 10
+        // line 11
         echo "        ";
     }
 
-    // line 14
+    // line 15
     public function block_content($context, array $blocks = array())
     {
     }
@@ -73,7 +74,7 @@ class __TwigTemplate_7a707a449d7ce7f2c374feadf160afc6deb3277444120b679939ebd9c29
 
     public function getDebugInfo()
     {
-        return array (  65 => 14,  61 => 10,  58 => 9,  53 => 8,  41 => 14,  36 => 11,  34 => 9,  30 => 8,  22 => 2,);
+        return array (  66 => 15,  62 => 11,  59 => 10,  54 => 8,  42 => 15,  37 => 12,  35 => 10,  30 => 8,  22 => 2,);
     }
 
     public function getSource()
@@ -86,6 +87,7 @@ class __TwigTemplate_7a707a449d7ce7f2c374feadf160afc6deb3277444120b679939ebd9c29
 
         <link rel=\"stylesheet\" href=\"/styles.css\" />
         <title>{% block title %}{% endblock %}</title>
+        <script src=\"https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js\"></script>
         {% block head %}
         {% endblock %}
     </head>

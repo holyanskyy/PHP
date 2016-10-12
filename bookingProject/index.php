@@ -15,6 +15,13 @@ $log->pushHandler(new StreamHandler('logs/errors.log', Logger::ERROR));
 //DB:: $dbName = 'todorest';
 //DB:: $user = 'todorest';
 //DB:: $password = 'K9yc6uMjDBx9GW4M';
+
+DB:: $dbName = 'cp4724_tors'; // connection to DB on server
+DB:: $user = 'cp4724_tors'; // connection to DB on server
+DB:: $password = 'bAltllSiuAad'; // for DB on server
+DB:: $host = '169.44.80.220'; //
+
+
 DB:: $error_handler = 'sql_error_handler';
 DB:: $nonsql_error_handler = 'nonsql_error_handler';
 

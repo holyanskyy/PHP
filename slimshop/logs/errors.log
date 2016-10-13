@@ -29,3 +29,5 @@
 [2016-10-12 19:35:47] main.ERROR: SQL error: Duplicate entry 'f4vdrtj4aqirhuqpoao9an77v5-1' for key 'sessionID_2' [] []
 [2016-10-12 19:35:47] main.ERROR:  in query: INSERT INTO `cartitems` (`sessionID`,`productID`,`quantity`) VALUES ('f4vdrtj4aqirhuqpoao9an77v5', '1', '1') [] []
 [2016-10-12 21:04:35] main.ERROR: Database error: Unable to connect to MySQL server! Error: Access denied for user 'slimshop'@'localhost' (using password: YES) [] []
+[2016-10-13 20:23:55] main.ERROR: SQL error: Column 'totalBeforeTax' cannot be null [] []
+[2016-10-13 20:23:55] main.ERROR:  in query: INSERT INTO `orders` (`userID`,`name`,`email`,`address`,`postalCode`,`phoneNumber`,`totalBeforeTax`,`shippingBeforeTax`,`taxes`,`totalWithShippingAndTaxes`,`dateTimePlaced`) VALUES (NULL, '', '', '', '', '', NULL, 15, 2.25, 17.25, '16-10-13 20:23:55') [] []

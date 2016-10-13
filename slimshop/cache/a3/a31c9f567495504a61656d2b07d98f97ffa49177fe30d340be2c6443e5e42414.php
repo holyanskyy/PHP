@@ -124,7 +124,10 @@ class __TwigTemplate_4c7e2ac78e570059a522cd91b2fea5965b90127e35c47f4c9878101ab33
         $context = array_intersect_key($context, $_parent) + $_parent;
         // line 53
         echo "    </table>
-
+ 
+   <a href=\"/order\">Place order</a>
+        
+        
 ";
     }
 
@@ -198,7 +201,10 @@ class __TwigTemplate_4c7e2ac78e570059a522cd91b2fea5965b90127e35c47f4c9878101ab33
             </tr>
         {% endfor %}
     </table>
-
+ 
+   <a href=\"/order\">Place order</a>
+        
+        
 {% endblock %}";
     }
 }

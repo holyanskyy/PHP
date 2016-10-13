@@ -1,0 +1,26 @@
+{% extends "master.html.twig" %}
+
+{% block head %}
+
+{% endblock %}
+
+{% block title %}Placing order{% endblock %}
+
+{% block content %}
+    <p>Total value before tax is {{totalBeforeTax}}.</p>
+    <p>Shipping before tax is {{shippingBeforeTax}}.</p>
+    <p>Taxes (GST/QST/HST) {{taxes}}.</p>
+    <p>Final total with shipping and taxes (amount to be paid): 
+        <b>{{totalWithShippingAndTaxes}}</b>. </p>
+    <form method="POST">
+        Name: <input type="text" name ="name" value="{{sessionUser.name}}"><br><br>
+        Address: <input type="text" name ="address"><br><br>
+        Postal code: <input type="text" name ="postalCode"><br><br>
+        Email: <input type="text" name ="email" value="{{sessionUser.email}}"><br><br>
+        Phone number: <input type="text" name ="phoneNumber"><br><br>
+        <p><u>TODO: payment information </u></p>
+
+        <input type="submit" value="Place order">
+    </form>
+
+{% endblock %}

@@ -15,7 +15,7 @@ $log->pushHandler(new StreamHandler('logs/errors.log', Logger::ERROR));
 
 DB::$dbName = 'slimshop';
 DB::$user = 'slimshop';
-DB::$password = 'WRhM74AU6Lxetcas';
+DB::$password = 'Sn6rABvHDNAxVujJ';
 // DB::$host = '127.0.0.1'; // sometimes needed on Mac OSX
 DB::$error_handler = 'sql_error_handler';
 DB::$nonsql_error_handler = 'nonsql_error_handler';
@@ -64,11 +64,10 @@ $app->get('/', function() use ($app) {
             array('sessionUser' => $_SESSION['user']));
 });
 
-
 $app->get('/emailexists/:email', function($email) use ($app, $log) {
-    $user = DB::queryFirstRow('SELECT ID FROM users WHERE email=%s', $email);
-    if ($user){
-        echo "Email already registred";
+    $user = DB::queryFirstRow("SELECT * FROM users WHERE email=%s", $email);
+    if ($user) {
+        echo "Email already registered";
     }
 });
 
@@ -115,10 +114,9 @@ $app->post('/register', function() use ($app, $log) {
     } else {
         // STATE 2: submission successful
         DB::insert('users', array(
-            'name' => $name, 
-            'email' => $email,
-            'password' => password_hash ($pass1, CRYPT_BLOWFISH)
-            //'password' => hash ('sha256', $pass1)
+            'name' => $name, 'email' => $email,
+            'password' => password_hash($pass1, CRYPT_BLOWFISH)
+            // 'password' => hash('sha256', $pass1)
         ));
         $id = DB::insertId();
         $log->debug(sprintf("User %s created", $id));

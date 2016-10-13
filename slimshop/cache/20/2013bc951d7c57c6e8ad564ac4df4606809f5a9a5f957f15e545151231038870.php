@@ -7,8 +7,8 @@ class __TwigTemplate_6dcbfbef8680eb5749561f2918a57e1454486c76e390c1099c3f8ad5c10
     {
         parent::__construct($env);
 
-        // line 3
-        $this->parent = $this->loadTemplate("master.html.twig", "register.html.twig", 3);
+        // line 1
+        $this->parent = $this->loadTemplate("master.html.twig", "register.html.twig", 1);
         $this->blocks = array(
             'title' => array($this, 'block_title'),
             'head' => array($this, 'block_head'),
@@ -26,92 +26,92 @@ class __TwigTemplate_6dcbfbef8680eb5749561f2918a57e1454486c76e390c1099c3f8ad5c10
         $this->parent->display($context, array_merge($this->blocks, $blocks));
     }
 
-    // line 5
+    // line 3
     public function block_title($context, array $blocks = array())
     {
         echo "Register user";
     }
 
-    // line 7
+    // line 5
     public function block_head($context, array $blocks = array())
     {
-        // line 8
+        // line 6
         echo "    <script src=\"https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js\"></script>
     <script>
-        \$(document).ready(function (){
-          \$('input[name=email]').keyup(function(){
-            \$('#result').load('/emailexists/' + \$(this).val()); 
-              
-          });  
-        });
-
-    </script>
-
-    <style>
-        #message{
-            color: red;
-            font-weight: bold;
+        
+        function checkEmail() {
+            var email = \$('input[name=email]').val();
+            if (email != '') {
+                //\$('#result').load('/emailexists/' + email);
+                // NOTE: .load is actually .ajax call like below
+                \$.ajax({
+                    url: '/emailexists/' + email
+                }).done(function (data) {
+                    \$(\"#result\").html(data);
+                });                
+            } else {
+                \$('#result').html(\"\");
+            }
         }
-    </style>
+        
+        \$(document).ready(function() {
+            \$('input[name=email]').keyup(function() {
+                checkEmail();
+            });
+            \$('input[name=email]').bind('paste', function() {
+                checkEmail();
+            });
+        });
+    </script>
 ";
     }
 
-    // line 27
+    // line 36
     public function block_content($context, array $blocks = array())
     {
-        // line 28
-        echo "    <h1>Register user</h1>
+        // line 37
+        echo "            
+<h1>Register user</h1>
 
-    ";
-        // line 30
+";
+        // line 40
         if ((isset($context["errorList"]) ? $context["errorList"] : null)) {
-            // line 31
-            echo "        <ul>
-            ";
-            // line 32
+            // line 41
+            echo "    <ul>
+    ";
+            // line 42
             $context['_parent'] = $context;
             $context['_seq'] = twig_ensure_traversable((isset($context["errorList"]) ? $context["errorList"] : null));
             foreach ($context['_seq'] as $context["_key"] => $context["error"]) {
-                // line 33
-                echo "                <li>";
+                // line 43
+                echo "        <li>";
                 echo twig_escape_filter($this->env, $context["error"], "html", null, true);
                 echo "</li>
-                ";
+    ";
             }
             $_parent = $context['_parent'];
             unset($context['_seq'], $context['_iterated'], $context['_key'], $context['error'], $context['_parent'], $context['loop']);
             $context = array_intersect_key($context, $_parent) + $_parent;
-            // line 34
-            echo "   
-        </ul>
-
-    ";
+            // line 45
+            echo "    </ul>
+";
         }
-        // line 38
-        echo "    <form method=\"post\">
-        <label for=\"name\">Name:</label> 
-        <input type=\"text\" name=\"name\" value=\"";
-        // line 40
+        // line 47
+        echo "
+<form method=\"post\">
+    Name: <input type=\"text\" name=\"name\" value=\"";
+        // line 49
         echo twig_escape_filter($this->env, $this->getAttribute((isset($context["v"]) ? $context["v"] : null), "name", array()), "html", null, true);
-        echo "\"<br><br><br>
-
-        <label for=\"email\"> Email: </label> 
-        <input type=\"text\" name=\"email\" value=\"";
-        // line 43
+        echo "\"><br>
+    Email: <input type=\"text\" name=\"email\" value=\"";
+        // line 50
         echo twig_escape_filter($this->env, $this->getAttribute((isset($context["v"]) ? $context["v"] : null), "email", array()), "html", null, true);
         echo "\">
-        <span id=\"result\"></span><br><br>
-
-        <label for=\"pass1\">Password: </label> 
-        <input type=\"password\" name=\"pass1\"><br><br>
-
-        <label for=\"pass1\">Password (repeated): </label> 
-        <input type=\"password\" name=\"pass2\"><br><br>
-
-        <input type=\"submit\" value=\"Register\"><br><br>
-    </form>
-
-
+            <span id=\"result\"></span><br>
+    Password: <input type=\"password\" name=\"pass1\"><br>
+    Password (repeated) <input type=\"password\" name=\"pass2\"><br>
+    <input type=\"submit\" value=\"Register\">
+</form>
 
 ";
     }
@@ -128,67 +128,68 @@ class __TwigTemplate_6dcbfbef8680eb5749561f2918a57e1454486c76e390c1099c3f8ad5c10
 
     public function getDebugInfo()
     {
-        return array (  101 => 43,  95 => 40,  91 => 38,  85 => 34,  76 => 33,  72 => 32,  69 => 31,  67 => 30,  63 => 28,  60 => 27,  39 => 8,  36 => 7,  30 => 5,  11 => 3,);
+        return array (  108 => 50,  104 => 49,  100 => 47,  96 => 45,  87 => 43,  83 => 42,  80 => 41,  78 => 40,  73 => 37,  70 => 36,  39 => 6,  36 => 5,  30 => 3,  11 => 1,);
     }
 
     public function getSource()
     {
-        return "{# empty Twig template #}
-
-{% extends \"master.html.twig\"%}
+        return "{% extends \"master.html.twig\" %}
 
 {% block title %}Register user{% endblock %}
 
 {% block head %}
     <script src=\"https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js\"></script>
     <script>
-        \$(document).ready(function (){
-          \$('input[name=email]').keyup(function(){
-            \$('#result').load('/emailexists/' + \$(this).val()); 
-              
-          });  
-        });
-
-    </script>
-
-    <style>
-        #message{
-            color: red;
-            font-weight: bold;
+        
+        function checkEmail() {
+            var email = \$('input[name=email]').val();
+            if (email != '') {
+                //\$('#result').load('/emailexists/' + email);
+                // NOTE: .load is actually .ajax call like below
+                \$.ajax({
+                    url: '/emailexists/' + email
+                }).done(function (data) {
+                    \$(\"#result\").html(data);
+                });                
+            } else {
+                \$('#result').html(\"\");
+            }
         }
-    </style>
+        
+        \$(document).ready(function() {
+            \$('input[name=email]').keyup(function() {
+                checkEmail();
+            });
+            \$('input[name=email]').bind('paste', function() {
+                checkEmail();
+            });
+        });
+    </script>
 {% endblock %}
 
+
 {% block content %}
-    <h1>Register user</h1>
+            
+<h1>Register user</h1>
 
-    {% if errorList %}
-        <ul>
-            {% for error in errorList %}
-                <li>{{error}}</li>
-                {% endfor %}   
-        </ul>
+{% if errorList %}
+    <ul>
+    {% for error in errorList %}
+        <li>{{ error }}</li>
+    {% endfor %}
+    </ul>
+{% endif %}
 
-    {% endif %}
-    <form method=\"post\">
-        <label for=\"name\">Name:</label> 
-        <input type=\"text\" name=\"name\" value=\"{{v.name}}\"<br><br><br>
+<form method=\"post\">
+    Name: <input type=\"text\" name=\"name\" value=\"{{v.name}}\"><br>
+    Email: <input type=\"text\" name=\"email\" value=\"{{v.email}}\">
+            <span id=\"result\"></span><br>
+    Password: <input type=\"password\" name=\"pass1\"><br>
+    Password (repeated) <input type=\"password\" name=\"pass2\"><br>
+    <input type=\"submit\" value=\"Register\">
+</form>
 
-        <label for=\"email\"> Email: </label> 
-        <input type=\"text\" name=\"email\" value=\"{{v.email}}\">
-        <span id=\"result\"></span><br><br>
-
-        <label for=\"pass1\">Password: </label> 
-        <input type=\"password\" name=\"pass1\"><br><br>
-
-        <label for=\"pass1\">Password (repeated): </label> 
-        <input type=\"password\" name=\"pass2\"><br><br>
-
-        <input type=\"submit\" value=\"Register\"><br><br>
-    </form>
-
-
-
-{% endblock %}";
+{% endblock %}
+    ";
     }
 }

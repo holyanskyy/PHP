@@ -4,3 +4,4 @@
 [2016-09-29 06:14:15] main.ERROR:  in query: INSERT INTO `users` (`name`,`email`,`password`) VALUES ('Terry', 'terry@gmail.com', 'Qwerty123') [] []
 [2016-09-29 16:42:53] main.ERROR: Database error: Unable to connect to MySQL server! Error: Access denied for user 'slimshop'@'localhost' (using password: YES) [] []
 [2016-09-29 16:44:38] main.ERROR: Database error: Unable to connect to MySQL server! Error: Access denied for user 'slimshop'@'localhost' (using password: YES) [] []
+[2016-10-07 05:57:28] main.ERROR: Database error: Unable to connect to MySQL server! Error: Access denied for user 'slimshop'@'localhost' (using password: YES) [] []

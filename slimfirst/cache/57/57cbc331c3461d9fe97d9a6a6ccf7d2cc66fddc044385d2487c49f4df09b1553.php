@@ -34,7 +34,7 @@ class __TwigTemplate_1f458237c7a4dcc754e73e9cd8c2354b84aaffa7777b112dcfd3c23a374
         }
         if (!$context['_iterated']) {
             // line 6
-            echo "    No users have been found.
+            echo "    No persons have been found.
 ";
         }
         $_parent = $context['_parent'];
@@ -64,7 +64,7 @@ class __TwigTemplate_1f458237c7a4dcc754e73e9cd8c2354b84aaffa7777b112dcfd3c23a374
 {% for person in personList %}
     <p> {{ person.name }} in {{ person.age }} y/o <p>
 {% else %}
-    No users have been found.
+    No persons have been found.
 {% endfor %}
 ";
     }

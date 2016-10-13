@@ -13,7 +13,21 @@
         <p>You are not logged in. You may <a href="/login">Login</a> or <a href="/register">Register</a></p>  <br><br>  
     {% endif %}
 
-
+    {% for product in productList %}
+        <hr>
+        <div>
+            <h3>{{product.name}}</h3>
+            <img height="100" src="/images/{{product.imagePath}}">
+            <p>{{product.description}}</p>
+            <p>Price per unit {{product.price}}</p>
+            <form method="POST" action="/cart">
+                Add to cart
+                <input type="hidden" name="productID" value="{{product.ID}}">
+                <input  type="number"name="quantity" value="1" style="width:30px"> 
+                <input type="submit" value="Add to cart"> 
+            </form>
+        </div>
+    {% endfor %}
 
 
 {% endblock %}

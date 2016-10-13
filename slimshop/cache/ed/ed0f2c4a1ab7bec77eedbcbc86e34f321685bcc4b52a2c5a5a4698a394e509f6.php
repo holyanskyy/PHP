@@ -55,8 +55,47 @@ class __TwigTemplate_1186c061694f516e7af4a7485c8b569594e72e19577623afcaa9a52c613
         }
         // line 15
         echo "
-
-
+    ";
+        // line 16
+        $context['_parent'] = $context;
+        $context['_seq'] = twig_ensure_traversable((isset($context["productList"]) ? $context["productList"] : null));
+        foreach ($context['_seq'] as $context["_key"] => $context["product"]) {
+            // line 17
+            echo "        <hr>
+        <div>
+            <h3>";
+            // line 19
+            echo twig_escape_filter($this->env, $this->getAttribute($context["product"], "name", array()), "html", null, true);
+            echo "</h3>
+            <img height=\"100\" src=\"/images/";
+            // line 20
+            echo twig_escape_filter($this->env, $this->getAttribute($context["product"], "imagePath", array()), "html", null, true);
+            echo "\">
+            <p>";
+            // line 21
+            echo twig_escape_filter($this->env, $this->getAttribute($context["product"], "description", array()), "html", null, true);
+            echo "</p>
+            <p>Price per unit ";
+            // line 22
+            echo twig_escape_filter($this->env, $this->getAttribute($context["product"], "price", array()), "html", null, true);
+            echo "</p>
+            <form method=\"POST\" action=\"/cart\">
+                Add to cart
+                <input type=\"hidden\" name=\"productID\" value=\"";
+            // line 25
+            echo twig_escape_filter($this->env, $this->getAttribute($context["product"], "ID", array()), "html", null, true);
+            echo "\">
+                <input  type=\"number\"name=\"quantity\" value=\"1\" style=\"width:30px\"> 
+                <input type=\"submit\" value=\"Add to cart\"> 
+            </form>
+        </div>
+    ";
+        }
+        $_parent = $context['_parent'];
+        unset($context['_seq'], $context['_iterated'], $context['_key'], $context['product'], $context['_parent'], $context['loop']);
+        $context = array_intersect_key($context, $_parent) + $_parent;
+        // line 31
+        echo "
 
 ";
     }
@@ -73,7 +112,7 @@ class __TwigTemplate_1186c061694f516e7af4a7485c8b569594e72e19577623afcaa9a52c613
 
     public function getDebugInfo()
     {
-        return array (  57 => 15,  53 => 13,  45 => 11,  43 => 10,  38 => 7,  35 => 6,  29 => 4,  11 => 2,);
+        return array (  98 => 31,  86 => 25,  80 => 22,  76 => 21,  72 => 20,  68 => 19,  64 => 17,  60 => 16,  57 => 15,  53 => 13,  45 => 11,  43 => 10,  38 => 7,  35 => 6,  29 => 4,  11 => 2,);
     }
 
     public function getSource()
@@ -93,7 +132,21 @@ class __TwigTemplate_1186c061694f516e7af4a7485c8b569594e72e19577623afcaa9a52c613
         <p>You are not logged in. You may <a href=\"/login\">Login</a> or <a href=\"/register\">Register</a></p>  <br><br>  
     {% endif %}
 
-
+    {% for product in productList %}
+        <hr>
+        <div>
+            <h3>{{product.name}}</h3>
+            <img height=\"100\" src=\"/images/{{product.imagePath}}\">
+            <p>{{product.description}}</p>
+            <p>Price per unit {{product.price}}</p>
+            <form method=\"POST\" action=\"/cart\">
+                Add to cart
+                <input type=\"hidden\" name=\"productID\" value=\"{{product.ID}}\">
+                <input  type=\"number\"name=\"quantity\" value=\"1\" style=\"width:30px\"> 
+                <input type=\"submit\" value=\"Add to cart\"> 
+            </form>
+        </div>
+    {% endfor %}
 
 
 {% endblock %}

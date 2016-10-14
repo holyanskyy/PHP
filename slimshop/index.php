@@ -19,6 +19,7 @@ DB::$password = 'Sn6rABvHDNAxVujJ';
 // DB::$host = '127.0.0.1'; // sometimes needed on Mac OSX
 DB::$error_handler = 'sql_error_handler';
 DB::$nonsql_error_handler = 'nonsql_error_handler';
+
 function nonsql_error_handler($params) {
     global $app, $log;
     $log->error("Database error: " . $params['error']);
@@ -58,6 +59,9 @@ if (!isset($_SESSION['user'])) {
     $_SESSION['user'] = array();
 }
 
+$twig = $app->view()->getEnvironment();
+$twig->addGlobal('sessionUser', $_SESSION['user']); // replace 'sessionUser' => $_SESSION['user'],
+
 $app->get('/', function() use ($app) {
     $productList = DB::query("SELECT * FROM products");
     $app->render('index.html.twig', array(
@@ -68,10 +72,10 @@ $app->get('/', function() use ($app) {
 
 $app->get('/cart', function() use ($app) {
     $cartitemList = DB::query(
-            "SELECT cartitems.ID as ID, productID, quantity,"
-            . " name, description, imagePath, price "            
-            . " FROM cartitems, products "
-            . " WHERE cartitems.productID = products.ID AND sessionID=%s", session_id());
+                    "SELECT cartitems.ID as ID, productID, quantity,"
+                    . " name, description, imagePath, price "
+                    . " FROM cartitems, products "
+                    . " WHERE cartitems.productID = products.ID AND sessionID=%s", session_id());
     $app->render('cart.html.twig', array(
         'sessionUser' => $_SESSION['user'],
         'cartitemList' => $cartitemList
@@ -82,14 +86,13 @@ $app->post('/cart', function() use ($app) {
     $productID = $app->request()->post('productID');
     $quantity = $app->request()->post('quantity');
     // FIXME: make sure the item is not in the cart yet
-    $item = DB::queryFirstRow("SELECT * FROM cartitems WHERE productID=%d AND sessionID=%s",
-            $productID, session_id());
+    $item = DB::queryFirstRow("SELECT * FROM cartitems WHERE productID=%d AND sessionID=%s", $productID, session_id());
     if ($item) {
         DB::update('cartitems', array(
             'sessionID' => session_id(),
             'productID' => $productID,
             'quantity' => $item['quantity'] + $quantity
-        ), "productID=%d AND sessionID=%s", $productID, session_id());
+                ), "productID=%d AND sessionID=%s", $productID, session_id());
     } else {
         DB::insert('cartitems', array(
             'sessionID' => session_id(),
@@ -99,10 +102,10 @@ $app->post('/cart', function() use ($app) {
     }
     // show current contents of the cart
     $cartitemList = DB::query(
-            "SELECT cartitems.ID as ID, productID, quantity,"
-            . " name, description, imagePath, price "            
-            . " FROM cartitems, products "
-            . " WHERE cartitems.productID = products.ID AND sessionID=%s", session_id());
+                    "SELECT cartitems.ID as ID, productID, quantity,"
+                    . " name, description, imagePath, price "
+                    . " FROM cartitems, products "
+                    . " WHERE cartitems.productID = products.ID AND sessionID=%s", session_id());
     $app->render('cart.html.twig', array(
         'sessionUser' => $_SESSION['user'],
         'cartitemList' => $cartitemList
@@ -112,15 +115,179 @@ $app->post('/cart', function() use ($app) {
 // AJAX call, not used directy by user
 $app->get('/cart/update/:cartitemID/:quantity', function($cartitemID, $quantity) use ($app) {
     if ($quantity == 0) {
-        DB::delete('cartitems', 'cartitems.ID=%d AND cartitems.sessionID=%s',
-                $cartitemID, session_id());
+        DB::delete('cartitems', 'cartitems.ID=%d AND cartitems.sessionID=%s', $cartitemID, session_id());
     } else {
-        DB::update('cartitems', array('quantity' => $quantity), 
-               'cartitems.ID=%d AND cartitems.sessionID=%s',
-                $cartitemID, session_id());
+        DB::update('cartitems', array('quantity' => $quantity), 'cartitems.ID=%d AND cartitems.sessionID=%s', $cartitemID, session_id());
     }
     echo json_encode(DB::affectedRows() == 1);
 });
+//order handling
+
+$app->map("/order", function () use ($app) {
+    $totalBeforeTax = DB::queryFirstField(
+                    "SELECT SUM(products.price *cartitems.quantity) FROM cartitems, products WHERE cartitems.sessionID=%s AND cartitems.productID=products.ID", session_id());
+    // TODO: properly compute taxes, shipping, ... 
+    $shippingBeforeTax = 15.00;
+    $taxes = ($totalBeforeTax + $shippingBeforeTax) * 0.15;
+    $totalWithShippingAndTaxes = $totalBeforeTax + $shippingBeforeTax + $taxes;
+
+
+    if ($app->request->isGet()) { // it is a GET method via map
+        $app->render('order.html.twig', array(
+            'totalBeforeTax' => number_format($totalBeforeTax, 2),
+            'shippingBeforeTax' => number_format($shippingBeforeTax, 2),
+            'taxes' => number_format($taxes, 2),
+            'totalWithShippingAndTaxes' => number_format($totalWithShippingAndTaxes, 2)
+        ));
+    } else { // it is a POST method via map
+        $name = $app->request->post('name'); // extarcting name
+        $email = $app->request->post('email');
+        $address = $app->request->post('address');
+        $postalCode = $app->request->post('postalCode');
+        $phoneNumber = $app->request->post('phoneNumber');
+        $valueList = array(
+            'name' => $name,
+            'email' => $email,
+            'address' => $address,
+            'postalCode' => $postalCode,
+            'phoneNumber' => $phoneNumber
+        );
+        //FIXME: verify inputs - MUST DO IT IN A REAL SYSTEM  - (VERYFICATION IN PHP - server AND for user IN JAVASCRIPT on client SIDE)
+        $errorList = array();
+        //
+
+        if ($errorList) {
+            $app->render('order.html.twig', array(
+                'totalBeforeTax' => number_format($totalBeforeTax, 2),
+                'shippingBeforeTax' => number_format($shippingBeforeTax, 2),
+                'taxes' => number_format($taxes, 2),
+                'totalWithShippingAndTaxes' => number_format($totalWithShippingAndTaxes, 2),
+                'v' => $valueList
+            ));
+        } else { // SUCCESSFUL SUBMISSION
+            DB::$error_handler = FALSE; // to manually turn off function nonsql_error_handler($params) 
+            DB::$throw_exception_on_error = TRUE;
+
+            try {
+                DB:: startTransaction();
+
+                // 1. create summary record in 'orders' table (insert)
+                DB:: insert("orders", array(
+                    'userID' => $_SESSION['user'] ? $_SESSION['user']['ID'] : NULL,
+                    'name' => $name,
+                    'email' => $email,
+                    'address' => $address,
+                    'postalCode' => $postalCode,
+                    'phoneNumber' => $phoneNumber,
+                    'totalBeforeTax' => $totalBeforeTax,
+                    'shippingBeforeTax' => $shippingBeforeTax,
+                    'taxes' => $taxes,
+                    'totalWithShippingAndTaxes' => $totalWithShippingAndTaxes,
+                    'dateTimePlaced' => date('y-m-d H:i:s')
+                ));
+
+                $orderID = DB::insertId();
+                // 2. copy all records from cartitems to "orderitems" (select and insert)
+
+                $cartitemList = DB::query(
+                                "SELECT  productID as origProductID, quantity, price"
+                                . " FROM cartitems, products "
+                                . " WHERE cartitems.productID = products.ID AND sessionID=%s", session_id());
+                // add orderID to every sub-array (element) in $cartitemList
+
+                array_walk($cartitemList, function(&$item, $key) use ($orderID) {
+                    $item['orderID'] = $orderID;
+                });
+
+                /* This is the same as the following foreach loop:
+                  foreach ($cartitemList as &$item) {
+                  $item['orderID'] = $orderID;
+                  } */
+
+                DB:: insert("orderitems", $cartitemList);
+                // 3. delete cartitems for this user's session (delete)
+                DB:: delete('cartitems', 'sessionID=%s', session_id());
+                DB:: commit();
+
+                // TODO: send a confirmation email
+                /*
+                  $emailHtml = $app->view()->getEnvironment()->render('email_order.html.twig');
+                  $headers = "MIME-Version: 1.0\r\n";
+                  $headers .= "Content-Type: text/html; charset=UTF-8\r\n";
+                  mail($email, "Order " .$orderID . " placed ", $emailHtml, $headers);
+                 */
+                //
+                $app->render('order_success.html.twig');
+            } catch (MeekroDBException $e) {
+                DB:: rollback();
+
+                sql_error_handler(array(
+                    'error' => $e->getMessage(),
+                    'query' => $e->getQuery()
+                ));
+            }
+        }
+    }
+})->via("GET", "POST");
+
+// PASSWORD RESET via map
+
+
+function generateRandomString($length = 10) {
+    $characters = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ';
+    $charactersLength = strlen($characters);
+    $randomString = '';
+    for ($i = 0; $i < $length; $i++) {
+        $randomString .= $characters[rand(0, $charactersLength - 1)];
+    }
+    return $randomString;
+}
+
+$app->map('/passreset', function () use ($app, $log) {
+
+    if ($app->request()->isGet()) { // it is a GET method via map
+        $app->render('passreset.html.twig');
+    } else {
+        $email = $app->request()->post('email');
+        $user = DB::queryFirstRow("SELECT * FROM users WHERE email=%s", $email);
+        if ($user) {
+            $app->render('passreset_success.html.twig');
+            $secretToken = generateRandomString(50);
+            // VERSION 1: delete and insert
+            /*
+              DB::delete('passreset', 'userID=%d', $user['ID']);
+              DB::insert('passreset', array(
+              'userID' => $user['ID'],
+              'secretToken' => $secretToken,
+              'expirydateTime' => date("Y-m-d H:i:s", strtotime("+5 hours"))
+              ));
+             * */
+
+            // VERSION 2: insert-update TODO
+            DB::insertUpdate('passresets', array(
+                'userID' => $user['ID'],
+                'secretToken' => $secretToken,
+                'expiryDateTime' => date("Y-m-d H:i:s", strtotime("+5 hours"))
+            ));
+            // email user
+            $html = $app->view()->render('email_passreset.html.twig', array(
+                'name' => $user['name'],
+                'url' => 'http://' . $_SERVER['SERVER_NAME'] . '/passreset/' . $secretToken
+            ));
+            $headers = "MIME-Version: 1.0\r\n";
+            $headers .= "Content-Type: text/html; charset=UTF-8\r\n";
+            mail($email, "Password reset from SlimShop", $html, $headers);
+        } else {
+            $app->render('passreset.html.twig', array('error' => TRUE));
+        }
+    }
+})->via("GET", "POST");
+
+
+$app->map('/passreset/:secretToken', function() {
+    echo "TODO";
+})->via('GET', 'POST');
+
 
 // ADMIN - CRUD for products table
 

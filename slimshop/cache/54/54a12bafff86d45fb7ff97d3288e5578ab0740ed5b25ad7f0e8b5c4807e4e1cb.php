@@ -18,51 +18,49 @@ class __TwigTemplate_7a707a449d7ce7f2c374feadf160afc6deb3277444120b679939ebd9c29
 
     protected function doDisplay(array $context, array $blocks = array())
     {
-        // line 2
-        echo "
-<!DOCTYPE html>
+        // line 1
+        echo "<!DOCTYPE html>
 <html>
     <head>
-
         <link rel=\"stylesheet\" href=\"/styles.css\" />
         <title>";
-        // line 8
+        // line 5
         $this->displayBlock('title', $context, $blocks);
         echo "</title>
         <script src=\"https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js\"></script>
         ";
-        // line 10
+        // line 7
         $this->displayBlock('head', $context, $blocks);
-        // line 12
+        // line 9
         echo "    </head>
     <body>
         <div id=\"centerContent\">
+            <a href=\"/cart\">View cart</a> <!-- to view number - use number OR AJAX-->
             <div id=\"content\">";
-        // line 15
+        // line 13
         $this->displayBlock('content', $context, $blocks);
         echo "</div>
-            <div id=\"footer\">
-                &copy; Copyright 2016 by Nazar</a>.            
+            <div id=\"footer\">                
+                    &copy; Copyright 2016 by <a href=\"http://domain.invalid/\">you</a>.
             </div>
         </div>
     </body>
-</html>
-";
+</html>";
     }
 
-    // line 8
+    // line 5
     public function block_title($context, array $blocks = array())
     {
     }
 
-    // line 10
+    // line 7
     public function block_head($context, array $blocks = array())
     {
-        // line 11
+        // line 8
         echo "        ";
     }
 
-    // line 15
+    // line 13
     public function block_content($context, array $blocks = array())
     {
     }
@@ -74,17 +72,14 @@ class __TwigTemplate_7a707a449d7ce7f2c374feadf160afc6deb3277444120b679939ebd9c29
 
     public function getDebugInfo()
     {
-        return array (  66 => 15,  62 => 11,  59 => 10,  54 => 8,  42 => 15,  37 => 12,  35 => 10,  30 => 8,  22 => 2,);
+        return array (  64 => 13,  60 => 8,  57 => 7,  52 => 5,  41 => 13,  35 => 9,  33 => 7,  28 => 5,  22 => 1,);
     }
 
     public function getSource()
     {
-        return "{# empty Twig template #}
-
-<!DOCTYPE html>
+        return "<!DOCTYPE html>
 <html>
     <head>
-
         <link rel=\"stylesheet\" href=\"/styles.css\" />
         <title>{% block title %}{% endblock %}</title>
         <script src=\"https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js\"></script>
@@ -93,13 +88,13 @@ class __TwigTemplate_7a707a449d7ce7f2c374feadf160afc6deb3277444120b679939ebd9c29
     </head>
     <body>
         <div id=\"centerContent\">
+            <a href=\"/cart\">View cart</a> <!-- to view number - use number OR AJAX-->
             <div id=\"content\">{% block content %}{% endblock %}</div>
-            <div id=\"footer\">
-                &copy; Copyright 2016 by Nazar</a>.            
+            <div id=\"footer\">                
+                    &copy; Copyright 2016 by <a href=\"http://domain.invalid/\">you</a>.
             </div>
         </div>
     </body>
-</html>
-";
+</html>";
     }
 }

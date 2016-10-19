@@ -70,6 +70,7 @@ $app->get('/', function() use ($app) {
     ));
 });
 
+
 $app->get('/cart', function() use ($app) {
     $cartitemList = DB::query(
                     "SELECT cartitems.ID as ID, productID, quantity,"
@@ -276,7 +277,7 @@ $app->map('/passreset', function () use ($app, $log) {
             ));
             $headers = "MIME-Version: 1.0\r\n";
             $headers .= "Content-Type: text/html; charset=UTF-8\r\n";
-            mail($email, "Password reset from SlimShop", $html, $headers);
+            mail($email, "Password recovery from SlimShop", $html, $headers);
         } else {
             $app->render('passreset.html.twig', array('error' => TRUE));
         }

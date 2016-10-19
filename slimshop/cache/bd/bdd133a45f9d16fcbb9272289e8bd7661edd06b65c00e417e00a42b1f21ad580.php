@@ -50,7 +50,7 @@ class __TwigTemplate_f7ecf66f5a40c3b78bc3fb6d44c34bfee83177cb08b84c5df3077cc5258
 <form method=\"post\">
     Email: <input type=\"text\" name=\"email\"><br>
     Password: <input type=\"password\" name=\"pass\"><br>
-    <input type=\"submit\" value=\"Login\">
+    <input type=\"submit\" value=\"Login\" name=\"btnSubmit\">
 </form>
 
 ";
@@ -88,7 +88,7 @@ class __TwigTemplate_f7ecf66f5a40c3b78bc3fb6d44c34bfee83177cb08b84c5df3077cc5258
 <form method=\"post\">
     Email: <input type=\"text\" name=\"email\"><br>
     Password: <input type=\"password\" name=\"pass\"><br>
-    <input type=\"submit\" value=\"Login\">
+    <input type=\"submit\" value=\"Login\" name=\"btnSubmit\">
 </form>
 
 {% endblock %}";
